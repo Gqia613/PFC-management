@@ -151,7 +151,7 @@ export default {
                 weight: this.weight,
             })
             .then((response) => {
-                this.success_msg = '*保存しました。';
+                this.success_msg = '*保存しました';
             })
             .catch((error) => {
                 this.errors = error.response.data.errors;

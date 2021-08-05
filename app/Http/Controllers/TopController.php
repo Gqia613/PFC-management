@@ -86,11 +86,12 @@ class TopController extends Controller
 
     public function insResult(Request $request)
     {
+        $this->validate($request, Result::$rules, Result::$messages);
         $user_physique = new Result;
         $form = $request->all();
         unset($form['_token']);
         $user_physique->fill($form)->save();
 
-        return ['msg' => '保存しました。'];
+        return ['msg' => '*保存しました'];
     }
 }

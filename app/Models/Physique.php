@@ -20,7 +20,7 @@ class Physique extends Model
 
     public static $messages = array(
         'gender.required' => '*性別は必須です',
-        'age.required'  => '*性別は必須です',
+        'age.required'  => '*年齢は必須です',
         'age.min'  => '*年齢は0以上の数値を入力してください',
         'age.numeric'  => '*年齢は数値を入力してください',
         'height.required'  => '*身長は必須です',

@@ -17,6 +17,10 @@
         </div>
     </div>
 
+    <div class="alert alert-danger mt-3" role="alert" v-if="errors">
+      <span v-for="(error, key) in errors" :key="key">{{ error[0] }}<br></span>
+    </div>
+
     <ValidationObserver v-slot="{ invalid }">
       <form>
         <div class="mb-3">
@@ -281,6 +285,7 @@ export default {
     },
 
     success_msg: null,
+    errors: null,
 
     result: [],
     meals_number: "3",
@@ -321,6 +326,7 @@ export default {
       this.carbohydrate_of_1meal =  Math.round( (this.result['carbohydrate_of_1day'] / this.meals_number) * Math.pow( 10, n ) ) / Math.pow( 10, n );
     },
     createResult() {
+        this.errors = null;
         axios.post('/api/result', {
             user_id: this.user['id'],
             first_day: this.formData.firstday,
@@ -342,6 +348,9 @@ export default {
         .then((res) => {
             this.success_msg = res.data['msg'];
             // this.toastShow();
+        })
+        .catch((error) => {
+            this.errors = error.response.data.errors;
         })
     },
     toastShow() {

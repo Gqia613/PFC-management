@@ -11,28 +11,8 @@ class SettingController extends Controller
     public function insPhysique(Request $request) {
         $data = [];
         $userId = $request->user_id;
-        // $user = Physique::where('user_id', $userId)->first();
 
-        // if($user) {
-        //     $user_physique = Physique::where('user_id', $userId)->first();
-
-        //     $user_physique->age = $request->age;
-        //     $user_physique->gender = $request->gender;
-        //     $user_physique->height = $request->height;
-        //     $user_physique->weight = $request->weight;
-
-        //     $user_physique->save();
-        // }else {
-        //     $user_physique = new Physique;
-        //     $user_physique->user_id = $userId;
-        //     $user_physique->age = $request->age;
-        //     $user_physique->gender = $request->gender;
-        //     $user_physique->height = $request->height;
-        //     $user_physique->weight = $request->weight;
-
-        //     $user_physique->save();
-        // }
-
+        $this->validate($request, Physique::$rules, Physique::$messages);
         $user_physique = Physique::updateOrCreate(
             ['user_id' => $userId],
             ['age' => $request->age, 'gender' => $request->gender, 'height' => $request->height, 'weight' => $request->weight]

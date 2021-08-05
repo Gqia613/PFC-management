@@ -1,5 +1,12 @@
 <template>
-  <div class="container">    
+  <div class="container">
+    <!-- <div class="toast d-flex align-items-center text-light bg-success border-1 mt-3 active" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">
+        {{ success_msg }}
+      </div>
+      <button type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div> -->
+
     <div class="card text-white bg-success mb-3 mt-3 mx-auto">
         <div class="card-header" v-if="user">{{ user.name }}</div>
         <div class="card-body" v-if="list">
@@ -218,7 +225,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-bs-dismiss="modal">閉じる</button>
-            <button type="button" class="btn btn-success" @click="createResult">保存する</button>
+            <button type="button" class="btn btn-success"  data-bs-dismiss="modal" @click="createResult">保存する</button>
           </div>
         </div>
       </div>
@@ -273,8 +280,7 @@ export default {
       weight: "",
     },
 
-
-    msg: [],
+    success_msg: null,
 
     result: [],
     meals_number: "3",
@@ -334,8 +340,12 @@ export default {
             weight: this.myPhysique.weight,
         })
         .then((res) => {
-            this.msg['success_msg'] = res.data['msg'];
+            this.success_msg = res.data['msg'];
+            // this.toastShow();
         })
+    },
+    toastShow() {
+      $('.toast').toast('show');
     },
     logout() {
         axios.post('/api/logout')
@@ -358,6 +368,7 @@ export default {
     // },
   },
   mounted() {
+      $('.toast').toast({animation:true, autohide: false, delay:3000});
       axios.get('/api/user')
         .then((res) => {
             this.user = res.data
@@ -390,5 +401,5 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 </style>

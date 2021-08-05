@@ -20,7 +20,7 @@ class LoginController extends Controller
         }
 
         throw ValidationException::withMessages([
-            'email' => ['正しいメールアドレスを入力してください']
+            'errormsg' => '*ユーザー名またはパスワードが間違ってます。'
         ]);
     }
 

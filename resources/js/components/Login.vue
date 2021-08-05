@@ -1,5 +1,9 @@
 <template>
 <div class="container">
+    <div class="alert alert-danger mt-3" role="alert" v-if="errors != ''">
+      {{ errors }}
+    </div>
+
     <ValidationObserver v-slot="{ invalid }">
       <form>
         <div class="mb-3 mt-3">
@@ -80,7 +84,7 @@ export default {
             password: "",
             remember: false,
         },
-        errors: [],
+        errors: "",
     }),
     methods: {
         login() {
@@ -90,9 +94,8 @@ export default {
                 .then((response) => {
                 this.$router.push({ name: "Home" });
                 })
-                .catch(function(error){
-                    console.log('ログイン失敗');
-                    this.errors = error.response.data.errors;
+                .catch((error) => {
+                    this.errors = error.response.data.errors.errormsg[0];
                 });
             });
         },

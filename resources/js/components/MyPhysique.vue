@@ -8,6 +8,15 @@
                 戻る
             </router-link>
         </div>
+    
+        <div class="alert alert-danger mt-3" role="alert" v-if="errors && success_msg == null">
+            <span v-for="(error, key) in errors" :key="key">{{ error[0] }}<br></span>
+        </div>
+
+        <div class="alert alert-warning mt-3" role="alert" v-if="success_msg && errors == null">
+            {{ success_msg }}
+        </div>
+
         <ValidationObserver v-slot="{ invalid }">
         <form>
             <div class="mb-3 mt-3">
@@ -125,9 +134,15 @@ export default {
         msg: "",
 
         userId: "",
+
+        success_msg: null,
+
+        errors: null,
     }),
     methods: {
         register() {
+            this.success_msg = null;
+            this.errors = null;
             axios.post('/api/physique', {
                 user_id: this.userId,
                 gender: this.gender,
@@ -136,8 +151,11 @@ export default {
                 weight: this.weight,
             })
             .then((response) => {
-                this.msg = response.data;
+                this.success_msg = '*保存しました。';
             })
+            .catch((error) => {
+                this.errors = error.response.data.errors;
+            });
         },
     },
     mounted() {

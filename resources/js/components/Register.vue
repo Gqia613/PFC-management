@@ -1,5 +1,8 @@
 <template>
 <div class="container">
+    <div class="alert alert-danger mt-3" role="alert" v-if="errors">
+      <span v-for="(error, key) in errors" :key="key">{{ error[0] }}<br></span>
+    </div>
     <ValidationObserver v-slot="{ invalid }">
       <form>
         <div class="mb-3 mt-3">
@@ -32,7 +35,7 @@
 
         <div class="mb-3">
           <label for="exampleInputPassword" class="form-label">パスワード</label>
-          <ValidationProvider rules="required" name="パスワード" v-slot="{ errors }">
+          <ValidationProvider rules="required|confirmed:confirmation" name="パスワード" v-slot="{ errors }">
             <input
               v-model="form.password"
               type="password"
@@ -45,8 +48,8 @@
         </div>
 
         <div class="mb-3">
-          <label for="exampleInputPassword" class="form-label">パスワード</label>
-          <ValidationProvider rules="required" name="パスワード" v-slot="{ errors }">
+          <label for="exampleInputPassword" class="form-label">確認用パスワード</label>
+          <ValidationProvider rules="required" name="確認用パスワード" v-slot="{ errors }" vid="confirmation">
             <input
               v-model="form.password_confirmation"
               type="password"
@@ -70,7 +73,7 @@
 
 <script>
 import Vue from 'vue';
-import { required, numeric, min_value } from 'vee-validate/dist/rules';
+import { required, numeric, min_value, confirmed } from 'vee-validate/dist/rules';
 import { ValidationObserver, ValidationProvider, extend, localize } from 'vee-validate';
 
 // Add a rule.
@@ -96,6 +99,11 @@ extend('selectCheck', value => {
   return '{_field_}を選択してください';
 });
 
+extend('confirmed', {
+  ...confirmed,
+  message: 'パスワードが一致しません'
+});
+
 Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
 export default {
@@ -107,7 +115,12 @@ export default {
         password: "",
         password_confirmation: "",
     },
-    errors: [],
+    // errors: {
+    //   name: null,
+    //   email: null,
+    //   password: null
+    // },
+    errors: null,
   }),
   methods: {
     register() {
@@ -116,8 +129,7 @@ export default {
             this.$router.push({ name: "Login" });
         })
         .catch((error) => {
-            console.log('登録失敗');
-            this.errors = error.response.data.errors;
+          this.errors = error.response.data.errors;
         });
     },
   },

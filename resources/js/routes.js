@@ -29,8 +29,7 @@ export default {
         },
         {
             path: '/home',
-            name: 'Home',
-            component: loadView('Home'),
+            component: loadView('Template'),
             beforeEnter: (to, form, next) => {
                 axios.get('/api/authenticated')
                     .then(() => {
@@ -42,70 +41,32 @@ export default {
                         })
                     })
             },
-        },
-        {
-            path: '/home/list',
-            name: 'List',
-            component: loadView('List'),
-            beforeEnter: (to, form, next) => {
-                axios.get('/api/authenticated')
-                    .then(() => {
-                        next()
-                    })
-                    .catch(() => {
-                        return next({
-                            name: 'Login'
-                        })
-                    })
-            },
-        },
-        {
-            path: '/home/list/detail',
-            name: 'ListDetail',
-            component: loadView('ListDetail'),
-            beforeEnter: (to, form, next) => {
-                axios.get('/api/authenticated')
-                    .then(() => {
-                        next()
-                    })
-                    .catch(() => {
-                        return next({
-                            name: 'Login'
-                        })
-                    })
-            },
-        },
-        {
-            path: '/home/setting',
-            name: 'Setting',
-            component: loadView('Setting'),
-            beforeEnter: (to, form, next) => {
-                axios.get('/api/authenticated')
-                    .then(() => {
-                        next()
-                    })
-                    .catch(() => {
-                        return next({
-                            name: 'Login'
-                        })
-                    })
-            },
-        },
-        {
-            path: '/home/setting/myphysique',
-            name: 'MyPhysique',
-            component: loadView('MyPhysique'),
-            beforeEnter: (to, form, next) => {
-                axios.get('/api/authenticated')
-                    .then(() => {
-                        next()
-                    })
-                    .catch(() => {
-                        return next({
-                            name: 'Login'
-                        })
-                    })
-            },
+            children: [{
+                    path: '/',
+                    name: 'Home',
+                    component: loadView('Home'),
+                },
+                {
+                    path: 'list',
+                    name: 'List',
+                    component: loadView('List'),
+                },
+                {
+                    path: 'list/detail',
+                    name: 'ListDetail',
+                    component: loadView('ListDetail'),
+                },
+                {
+                    path: 'setting',
+                    name: 'Setting',
+                    component: loadView('Setting'),
+                },
+                {
+                    path: 'setting/myphysique',
+                    name: 'MyPhysique',
+                    component: loadView('MyPhysique'),
+                },
+            ]
         },
     ]
 }

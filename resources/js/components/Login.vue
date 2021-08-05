@@ -1,48 +1,64 @@
 <template>
-<div class="container">
-    <div class="alert alert-danger mt-3" role="alert" v-if="errors != ''">
-      {{ errors }}
-    </div>
+<div>
+  <nav class="navbar navbar-light bg-success shadow-sm">
+      <div class="container-fluid">
+          <router-link :to="{ name: 'Home'}" class="navbar-brand mr-4">
+              <span class="navbar-brand mb-0 h1 text-white">PFC-manage</span>
+          </router-link>
+          <div class="d-flex flex-row-reverse"> 
+              <router-link :to="{ name: 'Register'}" class="navbar-brand m-1">
+                  <button type="button" class="btn btn-light btn-sm ml-1 mr-1 text-success">
+                      新規登録
+                  </button>
+              </router-link>
+          </div>
+      </div>
+  </nav>
+  <div class="container">
+      <div class="alert alert-danger mt-3" role="alert" v-if="errors != ''">
+        {{ errors }}
+      </div>
 
-    <ValidationObserver v-slot="{ invalid }">
-      <form>
-        <div class="mb-3 mt-3">
-          <label for="name" class="form-label">ユーザー名</label>
-          <ValidationProvider rules="required" name="ユーザー名" v-slot="{ errors }">
-            <input
-              v-model="form.name"
-              type="text"
-              class="form-control form-control-sm"
-              aria-describedby="nameHelp"
-              id="name"
-            />
-            <span>{{ errors[0] }}</span>
-          </ValidationProvider>
-          <div id="nameHelp" class="form-text"></div>
-        </div>
+      <ValidationObserver v-slot="{ invalid }">
+        <form>
+          <div class="mb-3 mt-3">
+            <label for="name" class="form-label">ユーザー名</label>
+            <ValidationProvider rules="required" name="ユーザー名" v-slot="{ errors }">
+              <input
+                v-model="form.name"
+                type="text"
+                class="form-control form-control-sm"
+                aria-describedby="nameHelp"
+                id="name"
+              />
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+            <div id="nameHelp" class="form-text"></div>
+          </div>
 
-        <div class="mb-3">
-          <label for="password" class="form-label">パスワード</label>
-          <ValidationProvider rules="required" name="パスワード" v-slot="{ errors }">
-            <input
-              v-model="form.password"
-              type="password"
-              class="form-control form-control-sm"
-              aria-describedby="passwordHelp"
-              id="password"
-            />
-            <span>{{ errors[0] }}</span>
-          </ValidationProvider>
-          <div id="passwordHelp" class="form-text"></div>
-        </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">パスワード</label>
+            <ValidationProvider rules="required" name="パスワード" v-slot="{ errors }">
+              <input
+                v-model="form.password"
+                type="password"
+                class="form-control form-control-sm"
+                aria-describedby="passwordHelp"
+                id="password"
+              />
+              <span>{{ errors[0] }}</span>
+            </ValidationProvider>
+            <div id="passwordHelp" class="form-text"></div>
+          </div>
 
-        <div class="row">
-          <button type="button" :disabled="invalid" class="btn btn-warning col-6 mx-auto" @click="login">
-            ログイン
-          </button>
-        </div>
-      </form>
-    </ValidationObserver>
+          <div class="row">
+            <button type="button" :disabled="invalid" class="btn btn-warning col-6 mx-auto" @click="login">
+              ログイン
+            </button>
+          </div>
+        </form>
+      </ValidationObserver>
+  </div>
 </div>
 </template>
 

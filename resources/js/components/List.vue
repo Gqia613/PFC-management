@@ -27,7 +27,7 @@ export default {
     name: 'List',
     data: () => ({
         user: null,
-        lists: null,
+        lists: [],
     }),
     methods: {
         getList() {
@@ -39,6 +39,8 @@ export default {
             .then((res) => {
                 if(res.data[0]) {
                     this.lists = res.data;
+                }else {
+                    this.lists = null;
                 }
             })
         }

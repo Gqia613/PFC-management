@@ -26,9 +26,9 @@ class TopController extends Controller
         define('FAT_PER_GRAM', 9);
         define('CARBOHYDRATE_PER_GRAM', 4);
         // PFCの割合
-        define('PROTEIN_PERCENTAGE', 45);
-        define('FAT_PERCENTAGE', 5);
-        define('CARBOHYDRATE_PERCENTAGE', 50);
+        define('PROTEIN_PERCENTAGE', 39);
+        define('FAT_PERCENTAGE', 15);
+        define('CARBOHYDRATE_PERCENTAGE', 46);
 
         $weight = $request->weight;
         $height = $request->height;

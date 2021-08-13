@@ -159,20 +159,23 @@
               <option value="10">10食</option>
             </select>
 
+            <p class="fw-bold mt-3">1日あたりの消費カロリー：{{ result.lost_calorie }}kcal</p>
+            <p class="fw-bold mt-3">1日あたりの摂取カロリー：{{ result.intake_calorie }}kcal</p>
+
             <p class="fw-bold mt-3">1日に摂取できるPFC</p>
             <table class="table">
               <tbody>
                 <tr>
                   <th scope="row">たんぱく質：</th>
-                  <td>{{ (result['protein_of_1day']) }}g</td>
+                  <td>{{ (result.protein_of_1day) }}g</td>
                 </tr>
                 <tr>
                   <th scope="row">脂質：</th>
-                  <td>{{ (result['fat_of_1day']) }}g</td>
+                  <td>{{ (result.fat_of_1day) }}g</td>
                 </tr>
                 <tr>
                   <th scope="row">炭水化物：</th>
-                  <td>{{ (result['carbohydrate_of_1day']) }}g</td>
+                  <td>{{ (result.carbohydrate_of_1day) }}g</td>
                 </tr>
               </tbody>
             </table>

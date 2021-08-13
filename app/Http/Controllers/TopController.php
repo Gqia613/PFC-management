@@ -74,8 +74,8 @@ class TopController extends Controller
         $data['height'] = $height;
         $data['first_day'] = $first_day;
         $data['last_day'] = $last_day;
-        $data['lost_calorie'] = $lost_calorie;
-        $data['intake_calorie'] = $intake_calorie;
+        $data['lost_calorie'] = round($lost_calorie, 0);
+        $data['intake_calorie'] = round($intake_calorie, 0);
         $data['goal_weight'] = $goal_weight;
         $data['protein_of_1day'] = round($protein_of_1day, 2);
         $data['fat_of_1day'] = round($fat_of_1day, 2);

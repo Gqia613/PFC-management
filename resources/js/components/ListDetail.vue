@@ -18,18 +18,68 @@
                 <p class="card-text">日数：{{ list.diet_term }}日</p>
                 <p class="card-text">運動量：{{ list.exercise }}</p>
                 <p class="card-text">1日の食事回数：{{ list.meals_number }}回</p>
-                <p class="card-text">1日に必要なタンパク質：{{ list.need_protein }}g</p>
-                <p class="card-text">1日に必要な脂質：{{ list.need_fat }}g</p>
-                <p class="card-text">1日に必要な炭水化物：{{ list.need_carbohydrate }}g</p>
-                <p class="card-text">身長：{{ list.height }}cm</p>
-                <p class="card-text">体重：{{ list.weight }}kg</p>
-                <p class="card-text">年齢：{{ list.age }}歳</p>
-                <p class="card-text">1食に必要なタンパク質：{{ result_calculation.protein_1meal }}g</p>
-                <p class="card-text">1食に必要な脂質：{{ result_calculation.fat_1meal }}g</p>
-                <p class="card-text">1食に必要な炭水化物：{{ result_calculation.carbohydrate_1meal }}g</p>
-                <p class="card-text">ささみの場合：{{ result_calculation.chicken_tender }}g</p>
-                <p class="card-text">鶏むね肉の場合：{{ result_calculation.chicken_breast }}g</p>
-                <p class="card-text">白米の場合：{{ result_calculation.white_rice }}g</p>
+                <p class="card-text table-title mb-1">~~~登録時の身体情報~~~</p>
+                <table class="table table-sm text-success">
+                    <thead>
+                        <tr>
+                            <th scope="col">身長</th>
+                            <th scope="col">体重</th>
+                            <th scope="col">年齢</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ list.height }}cm</td>
+                            <td>{{ list.weight }}kg</td>
+                            <td>{{ list.age }}歳</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="card-text table-title mb-1">~~~必要なPFC~~~</p>
+                <table class="table table-sm text-success">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">タンパク質</th>
+                            <th scope="col">脂質</th>
+                            <th scope="col">炭水化物</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                             <th scope="row">1日</th>
+                            <td>{{ list.need_protein }}g</td>
+                            <td>{{ list.need_fat }}g</td>
+                            <td>{{ list.need_carbohydrate }}g</td>
+                        </tr>
+                        <tr>
+                             <th scope="row">1食</th>
+                            <td>{{ result_calculation.protein_1meal }}g</td>
+                            <td>{{ result_calculation.fat_1meal }}g</td>
+                            <td>{{ result_calculation.carbohydrate_1meal }}g</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="card-text mb-1">食材で例えるとどのくらい？（1食あたり）</p>
+                <p class="card-text table-title my-2">タンパク質</p>
+                <ul class="list-group">
+                    <li class="list-group-item">ささみの場合：{{ result_calculation.chicken_tender }}g</li>
+                    <li class="list-group-item">鶏むね肉の場合：{{ result_calculation.chicken_breast }}g</li>
+                </ul>
+                <p class="card-text table-title my-2">脂質</p>
+                <ul class="list-group">
+                    <li class="list-group-item">良質な脂質（オリーブオイル・ココナッツオイル・MCTオイルetc...）：{{ result_calculation.oil }}g</li>
+                </ul>
+                <p class="card-text table-title my-2">炭水化物</p>
+                <ul class="list-group">
+                    <li class="list-group-item">白米の場合：{{ result_calculation.white_rice }}g</li>
+                </ul>
+                <div class="alert alert-warning mt-3" role="alert">
+                    ※脂質はささみを{{ result_calculation.chicken_tender }}g、白米を{{ result_calculation.white_rice }}g摂取した際の値となっております。
+                    また、ささみの調理方法によっても変動しますので、目安程度にお考えください。
+                </div>
             </div>
         </div>
 
@@ -75,17 +125,22 @@ export default {
             let chicken_tender_ratio = 100 / 25;
             let chicken_breast_ratio = 100 / 20;
             let white_rice_ratio = 100 / 36.8;
+
             // 鶏ムネ肉、ささみ、白米に換算してそれぞれ一食あたりの食べる量を計算
             let chicken_tender = protein_1meal * chicken_tender_ratio;
             let chicken_breast = protein_1meal * chicken_breast_ratio;
             let white_rice = carbohydrate_1meal * white_rice_ratio;
 
-            result['protein_1meal'] = Math.round( protein_1meal * Math.pow( 10, n ) ) / Math.pow( 10, n );;
-            result['fat_1meal'] = Math.round( fat_1meal * Math.pow( 10, n ) ) / Math.pow( 10, n );;
-            result['carbohydrate_1meal'] = Math.round( carbohydrate_1meal * Math.pow( 10, n ) ) / Math.pow( 10, n );;
-            result['chicken_tender'] = Math.round( chicken_tender * Math.pow( 10, n ) ) / Math.pow( 10, n );;
-            result['chicken_breast'] = Math.round( chicken_breast * Math.pow( 10, n ) ) / Math.pow( 10, n );;
-            result['white_rice'] = Math.round( white_rice * Math.pow( 10, n ) ) / Math.pow( 10, n );;
+            let fat_chicken_tender = (chicken_tender / 100) * 1;
+            let fat_white_rice = (white_rice / 100) * 0.33;
+
+            result['protein_1meal'] = Math.round( protein_1meal * Math.pow( 10, n ) ) / Math.pow( 10, n );
+            result['fat_1meal'] = Math.round( fat_1meal * Math.pow( 10, n ) ) / Math.pow( 10, n );
+            result['carbohydrate_1meal'] = Math.round( carbohydrate_1meal * Math.pow( 10, n ) ) / Math.pow( 10, n );
+            result['chicken_tender'] = Math.round( chicken_tender * Math.pow( 10, n ) ) / Math.pow( 10, n );
+            result['chicken_breast'] = Math.round( chicken_breast * Math.pow( 10, n ) ) / Math.pow( 10, n );
+            result['oil'] = Math.round( (fat_1meal - (fat_chicken_tender + fat_white_rice)) * Math.pow( 10, n ) ) / Math.pow( 10, n );
+            result['white_rice'] = Math.round( white_rice * Math.pow( 10, n ) ) / Math.pow( 10, n );
 
             this.result_calculation = result;
         }
@@ -117,3 +172,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.table-title {
+    text-align: center;
+}
+</style>

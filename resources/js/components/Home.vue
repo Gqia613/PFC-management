@@ -227,7 +227,7 @@
             </table>
 
             <div class="alert alert-warning" role="alert">
-              ※保存すると結果一覧からさらに細かい情報が得られます。
+              ※保存すると結果一覧からより細かい情報が得られます。
             </div>
           </div>
           <div class="modal-footer">

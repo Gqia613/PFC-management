@@ -199,7 +199,7 @@
             </table>
 
             <div class="alert alert-warning" role="alert">
-              ※ログインすると計算結果を保存して、いつでも確認することができます。
+              ※ログインすると計算結果を保存することができ、より細かい情報が得られます。
             </div>
           </div>
           <div class="modal-footer">
